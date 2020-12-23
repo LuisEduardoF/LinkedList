@@ -9,7 +9,7 @@
 3) **appendElement**: Adds a element in the end of a linked list;
     - *Args*: A item and a list
     - *Returns*: Nothing
-4) **extend**: Adds all the elements of an iterable (list, tuple, string etc.) to the end of the list.
+4) **extend**: Adds all the elements of an list to the end of other list.
     - *Args*: A list source, target and a function to copy the itens of the Source list
     - *Returns*: Nothing
 5) **erase**: Remove the first element that matches and return it ( if does'nt find return NULL );
