@@ -31,6 +31,42 @@ tList inicializeList(){
 int lenght(tList L){
     return L->lenght;
 }
+void* pop(int pos, tList L){
+    if(ExistList(L)){
+        void* aux;
+        tNode p;
+        if(!isEmptyList(L)){
+            if(pos == 0){
+                p = L->fst;  
+                L->fst = L->fst->prox;  
+            }
+            else if(pos >= L->lenght || pos < 0){
+                return NULL;
+            }
+            else{
+                tNode ant;
+                int i = 0;
+                for(p = L->fst; p != NULL; p = p->prox, i++){
+                    if(i == pos)
+                        break;
+                    ant = p;
+                }
+                if(p == L->end){
+                    L->end = ant;
+                    L->end->prox = NULL;
+                }
+                else{
+                    ant->prox = p->prox;
+                }
+            }
+            L->lenght--;
+            aux = p->info;
+            free(p);
+            return aux;
+        }
+    }
+    return NULL;
+}
 void* erase(void* info, tList L, int cmp(void*, void*)){
      if(ExistList(L)){
         if(isEmptyList(L)){
@@ -44,9 +80,6 @@ void* erase(void* info, tList L, int cmp(void*, void*)){
                     break;
                 }
                 ant = p;
-            }
-            if(p == NULL){
-                return NULL;
             }
             if(p == L->fst && p == L->end){
                 L->fst = L->end = NULL;
@@ -67,6 +100,7 @@ void* erase(void* info, tList L, int cmp(void*, void*)){
             return aux;
         }
     }
+    return NULL;
 }
 void* search(void* info, tList L, int cmp(void*, void*)){
     if(ExistList(L)){
@@ -84,7 +118,20 @@ void* search(void* info, tList L, int cmp(void*, void*)){
         }
     }
 }
-void appendElement(void* info, tList L){
+void push(void* info, tList L){
+    if(ExistList(L)){
+        tNode c = inicializaNode(info);
+        if(isEmptyList(L)){
+            L->fst = L->end = c;
+        }
+        else{
+            c->prox = L->fst;
+            L->fst = c;
+        }
+        L->lenght++;
+    }
+}
+void queue(void* info, tList L){
     if(ExistList(L)){
         tNode c = inicializaNode(info);
         if(isEmptyList(L)){
@@ -104,7 +151,7 @@ void extend(tList p, tList s, void* cpy(void*)){
         }
         else{
             for(tNode l = s->fst; l != NULL; l = l->prox){
-                appendElement(cpy(l->info), p);
+                queue(cpy(l->info), p);
             }
         }
     }

@@ -6,9 +6,11 @@ tList inicializeList();
 
 int lenght(tList);
 
-void appendElement(void*, tList);
+void push(void*, tList);
+void queue(void*, tList);
 void extend(tList p, tList s, void* cpy(void*));
 
+void* pop(int pos, tList);
 void* erase(void*, tList, int cmp(void*, void*));
 
 void* search(void*, tList, int cmp(void*, void*));
